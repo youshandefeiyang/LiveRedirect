@@ -1,4 +1,4 @@
-name: Go
+name: Go Cross Compilation
 
 on:
   push:
@@ -8,7 +8,47 @@ on:
 
 jobs:
 
-  build:
+  build_macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+
+    - name: Build for macOS
+      run: cd ./Golang && GOOS=darwin GOARCH=amd64 go build -o allinone_macos
+
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with: 
+          files: allinone_macos
+          name: allinone_macos_amd64
+          path: Golang
+
+  build_windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+
+    - name: Build for Windows
+      run: cd ./Golang && GOOS=windows GOARCH=amd64 go build -o allinone_windows.exe
+
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with: 
+          files: allinone_windows.exe
+          name: allinone_windows_amd64
+          path: Golang
+
+  build_linux:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -18,12 +58,12 @@ jobs:
       with:
         go-version: 1.19
 
-    - name: Build
-      run: cd ./Golang && go build -o allinone
+    - name: Build for Linux
+      run: cd ./Golang && GOOS=linux GOARCH=amd64 go build -o allinone_linux
 
     - name: Upload
       uses: actions/upload-artifact@v3
       with: 
-          files: allinone
+          files: allinone_linux
           name: allinone_linux_amd64
           path: Golang
