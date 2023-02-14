@@ -17,5 +17,4 @@ COPY --from=builder /allinone /app/allinone
 
 EXPOSE 35455
 
-
 CMD [ "./allinone" ]
