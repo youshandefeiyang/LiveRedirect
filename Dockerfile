@@ -1,4 +1,4 @@
-FROM golang:1.19-alpine
+FROM golang:1.19-alpine AS builder
 
 WORKDIR /app
 
@@ -11,6 +11,10 @@ COPY ./Golang/liveurls/*.go ./liveurls/
 
 RUN go build -o /allinone
 
+FROM golang:1.19-alpine
+WORKDIR /app
+COPY --from=builder /allinone /app/allinone
+
 EXPOSE 35455
 
-CMD [ "/allinone" ]
+CMD [ "./allinone" ]
