@@ -13,6 +13,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           owner:  youshandefeiyang # fork 的上游仓库 user
-          head: main # fork 的上游仓库 branch
-          base: main # 本地仓库 branch
+          head: youshandefeiyang/IPTV  # fork 的上游仓库 branch
+          base: daiguitian/IPTV # 本地仓库 branch
 
