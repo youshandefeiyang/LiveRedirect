@@ -12,7 +12,7 @@ on:
 
 env:
   APP_NAME: allinone
-  DOCKERHUB_REPO: youshandefeiyang/allinone
+  DOCKERHUB_REPO: enpioo/allinone
 
 jobs:
   docker:
